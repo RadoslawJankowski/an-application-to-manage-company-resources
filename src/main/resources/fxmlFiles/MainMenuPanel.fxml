@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="848.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainPanelController">
+   <children>
+      <Pane layoutY="-4.0" prefHeight="534.0" prefWidth="200.0" styleClass="backgroundForPanelWithOptions" stylesheets="@../aplication.css">
+         <children>
+            <ImageView fitHeight="52.0" fitWidth="55.0" layoutX="125.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/employee-icon-1.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="empWindowButtonLoader" layoutX="5.0" layoutY="33.0" mnemonicParsing="false" onAction="#employeeWindowLoader" prefHeight="43.0" prefWidth="125.0" stylesheets="@../aplication.css" text="Pracownicy" textFill="#927e7e" />
+            <Button layoutX="5.0" layoutY="103.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="125.0" stylesheets="@../aplication.css" text="Finsanse" textFill="#927e7e" />
+            <Button layoutX="5.0" layoutY="173.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="125.0" stylesheets="@../aplication.css" text="Dostawcy" textFill="#927e7e" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
