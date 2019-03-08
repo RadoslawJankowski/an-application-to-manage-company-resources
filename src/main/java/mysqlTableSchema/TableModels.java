@@ -1,4 +1,4 @@
-package connector;
+package mysqlTableSchema;
 
 
 public class TableModels {
@@ -13,17 +13,4 @@ public class TableModels {
             + "   salary DECIMAL(10,2),"
             + "   work_from TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,"
             + "   PRIMARY KEY (emp_id));";
-
-    public static final String INSERT_INTO_EMPLOYEE_QUERY = "INSERT INTO employees (" +
-            "firstName, " +
-            "lastName, " +
-            "birthDayDate, " +
-            "sex, " +
-            "empPosition, " +
-            "salary " +
-            ") VALUES ('" ;
-
-    public static final String SEPARATE = "','";
-
-    public static final String END_OF_EMPLOYEE_QUERY = "');";
 }

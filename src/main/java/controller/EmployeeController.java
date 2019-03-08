@@ -11,7 +11,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-import static connector.TableModels.*;
+import static mysqlComands.InsertIntoQuery.*;
 public class EmployeeController implements Initializable {
 
     Statement statement = null;
@@ -30,7 +30,7 @@ public class EmployeeController implements Initializable {
                     + sexTextField.getText() + SEPARATE
                     + positionTextField.getText() + SEPARATE
                     + salaryTextField.getText()
-                    + END_OF_EMPLOYEE_QUERY);
+                    + END_OF_INSERT_INTO_QUERY);
         JOptionPane.showMessageDialog(new Frame(), "Dodano nowego pracownika.");
     }
 
