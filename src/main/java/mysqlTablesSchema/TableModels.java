@@ -1,4 +1,4 @@
-package mysqlTableSchema;
+package mysqlTablesSchema;
 
 
 public class TableModels {
@@ -7,7 +7,7 @@ public class TableModels {
             + "   emp_id INT AUTO_INCREMENT, "
             + "   firstName VARCHAR(30) NOT NULL, "
             + "   lastName VARCHAR(30) NOT NULL, "
-            + "   birthDayDate VARCHAR(10), "
+            + "   birthDayDate DATE, "
             + "   sex VARCHAR(1), "
             + "   empPosition INT, "
             + "   salary DECIMAL(10,2),"

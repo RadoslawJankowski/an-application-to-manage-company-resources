@@ -1,5 +1,7 @@
 
-import mysqlTableSchema.TableModels;
+import db.DBConnector;
+import jdk.nashorn.internal.runtime.Version;
+import mysqlTablesSchema.TableModels;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,6 +9,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main extends Application {
 
@@ -18,9 +22,7 @@ public class Main extends Application {
 
 
         try {
-            connection =
-                    DriverManager.getConnection("jdbc:mysql://localhost/firma?useLegacyDatetimeCode=false&serverTimezone=UTC&" +
-                            "user=root&password=database123");
+                 connection = DBConnector.getConnection();
             statement = connection.createStatement();
             statement.executeUpdate(TableModels.EMPLOYEE_TABLE);
 
@@ -31,17 +33,25 @@ public class Main extends Application {
             System.out.println("VendorError: " + ex.getErrorCode());
         }
 
-    finally {
-        try { resultSet.close(); } catch (Exception e) { /* ignored */ }
-        try { statement.close(); } catch (Exception e) { /* ignored */ }
-        try { connection.close(); } catch (Exception e) { /* ignored */ }
-    }
+        finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+
+            } catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(Version.class.getName());
+                lgr.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        }
 
         launch(args);
     }
 
     public void start(Stage primaryStage) throws Exception {
-
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(this.getClass().getResource("/fxmlFiles/MainMenuPanel.fxml"));

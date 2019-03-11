@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="848.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainPanelController">
    <children>
-      <Pane layoutY="-4.0" prefHeight="534.0" prefWidth="200.0" styleClass="backgroundForPanelWithOptions" stylesheets="@../aplication.css">
+      <Pane layoutY="-4.0" prefHeight="530.0" prefWidth="200.0" styleClass="backgroundForPanelWithOptions" stylesheets="@../aplication.css">
          <children>
             <ImageView fitHeight="52.0" fitWidth="55.0" layoutX="125.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
