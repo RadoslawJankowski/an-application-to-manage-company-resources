@@ -3,7 +3,6 @@ package controller.employees;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -24,7 +24,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-import static mysqlCommands.SelectQuerys.*;
+import static mysqlCommands.SelectEmployeesQuerys.*;
 import static db.DBConnector.getConnection;
 import static mysqlCommands.DeleteEmployeeQuery.*;
 
@@ -34,8 +34,14 @@ public class EmployeeMainPanelController implements Initializable {
     Connection connection = null;
     ResultSet resultSet = null;
 
-    @FXML
-    Button openAddEmployeeWindow;
+    private static EmployeeMainPanelController instance;
+
+    public static synchronized EmployeeMainPanelController getInstanceOfEmpMainPanel() {
+        if (instance == null) {
+            instance = new EmployeeMainPanelController();
+        }
+        return instance;
+    }
 
     @FXML
     TableView<Employee> tableViewEmployees;
@@ -59,51 +65,9 @@ public class EmployeeMainPanelController implements Initializable {
 
     ObservableList<Employee> observableList = FXCollections.observableArrayList();
 
-    public void addEmployeeWindowLoader() throws IOException {
+    Employee employeeToUpdate;
 
-        openAddEmployeeWindow.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/employeeFXML/AddEmployeeWindow.fxml"));
-                    Scene gameSceneView = new Scene(gameViewParent);
-                    Stage newWindow = new Stage();
-                    newWindow.setScene(gameSceneView);
-                    newWindow.setTitle("Dodaj nowego pracownika");
-                    newWindow.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
-     *
-     The method by which we can delete the employee chosen by us in the main panel.
-     By deleting, we are asking if we really want to do it.
-     After selecting "yes", the employee is removed from the database and the view of employees is refreshed.
-     * @throws SQLException
-     */
-    public void deleteSelectedEmployee() throws SQLException {
-
-        int p = JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz usunąć tego pracownika?", "Usuwanie pracownika", JOptionPane.YES_NO_OPTION);
-
-        if (p == 0) {
-            try {
-                Employee employeeToDelete = tableViewEmployees.getSelectionModel().getSelectedItem();
-                statement = connection.prepareStatement(DELETE_EMPLOYEE_BY_ID);
-                ((PreparedStatement) statement).setInt(1, employeeToDelete.getEmp_id());
-                ((PreparedStatement) statement).executeUpdate();
-
-                selectAllEmployees();
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
-        }
-    }
-
-    public void selectAllEmployees() throws SQLException {
+    public void selectAllEmployees() {
 
         tableViewEmployees.getItems().clear();
         tableViewEmployees.setOpacity(1);
@@ -114,7 +78,7 @@ public class EmployeeMainPanelController implements Initializable {
             while (resultSet.next()) {
                 observableList.add(new Employee(resultSet.getInt("emp_id"),
                         resultSet.getString("firstName"), resultSet.getString("lastName"),
-                        resultSet.getDate("birthDayDate"), resultSet.getString("sex"),
+                        resultSet.getDate("birthDayDate"), resultSet.getString("sex").toUpperCase(),
                         resultSet.getInt("empPosition"), resultSet.getBigDecimal("salary"),
                         resultSet.getTimestamp("work_from")));
             }
@@ -135,6 +99,60 @@ public class EmployeeMainPanelController implements Initializable {
         tableViewEmployees.setItems(observableList);
     }
 
+    public void addEmployeeWindowLoader() {
+
+        try {
+            AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/employeeFXML/AddEmployeeWindow.fxml"));
+            Scene gameSceneView = new Scene(gameViewParent);
+            Stage newWindow = new Stage();
+            newWindow.setScene(gameSceneView);
+            newWindow.setTitle("Dodaj nowego pracownika");
+            newWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * The method by which we can delete the employee chosen by us in the main panel.
+     * By deleting, we are asking if we really want to do it.
+     * After selecting "yes", the employee is removed from the database and the view of employees is refreshed.
+     *
+     * @throws SQLException
+     */
+    public void deleteSelectedEmployee() throws SQLException {
+
+        int p = JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz usunąć tego pracownika?", "Usuwanie pracownika", JOptionPane.YES_NO_OPTION);
+
+        if (p == 0) {
+            try {
+                Employee employeeToDelete = tableViewEmployees.getSelectionModel().getSelectedItem();
+                statement = connection.prepareStatement(DELETE_EMPLOYEE_BY_ID);
+                ((PreparedStatement) statement).setInt(1, employeeToDelete.getEmp_id());
+                ((PreparedStatement) statement).executeUpdate();
+
+                selectAllEmployees();
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+
+            statement.close();
+            connection.close();
+        }
+    }
+
+    public void updateEmployeeDataWindowLoader() throws IOException {
+
+            getInstanceOfEmpMainPanel().setEmployeeToUpdate(tableViewEmployees.getSelectionModel().getSelectedItem());
+
+            AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/employeeFXML/UpdateEmployeeWindow.fxml"));
+            Scene gameSceneView = new Scene(gameViewParent);
+            Stage newWindow = new Stage();
+            newWindow.setScene(gameSceneView);
+            newWindow.setTitle("Zmień dane pracownika");
+            newWindow.show();
+        }
+
     public void backToPreviousWindow(ActionEvent event) throws IOException {
 
         AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/MainMenuPanel.fxml"));
@@ -147,5 +165,13 @@ public class EmployeeMainPanelController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    public Employee getEmployeeToUpdate() {
+        return employeeToUpdate;
+    }
+
+    public void setEmployeeToUpdate(Employee employeeToUpdate) {
+        this.employeeToUpdate = employeeToUpdate;
     }
 }

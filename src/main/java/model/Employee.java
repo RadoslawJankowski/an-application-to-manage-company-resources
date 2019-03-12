@@ -89,4 +89,18 @@ public class Employee {
     public void setWork_from(Timestamp work_from) {
         this.work_from = work_from;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "emp_id=" + emp_id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDayDate=" + birthDayDate +
+                ", sex='" + sex + '\'' +
+                ", empPosition=" + empPosition +
+                ", salary=" + salary +
+                ", work_from=" + work_from +
+                '}';
+    }
 }

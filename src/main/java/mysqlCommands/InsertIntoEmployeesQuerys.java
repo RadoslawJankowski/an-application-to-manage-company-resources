@@ -1,6 +1,6 @@
 package mysqlCommands;
 
-public class InsertIntoQuerys {
+public class InsertIntoEmployeesQuerys {
 
     public static final String INSERT_INTO_EMPLOYEE_QUERY = "INSERT INTO employees (" +
             "firstName, " +

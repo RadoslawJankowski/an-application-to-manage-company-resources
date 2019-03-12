@@ -1,11 +1,11 @@
 
 import db.DBConnector;
+import javafx.scene.layout.AnchorPane;
 import jdk.nashorn.internal.runtime.Version;
 import mysqlTablesSchema.TableModels;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.sql.*;
@@ -40,6 +40,9 @@ public class Main extends Application {
                 }
                 if (connection != null) {
                     connection.close();
+                }
+                if (resultSet != null){
+                    resultSet.close();
                 }
 
             } catch (SQLException ex) {
