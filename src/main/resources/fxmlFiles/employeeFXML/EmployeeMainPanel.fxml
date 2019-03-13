@@ -33,11 +33,11 @@
             <TableColumn fx:id="emp_id" prefWidth="30.399993896484375" text="ID" />
             <TableColumn fx:id="firstName" prefWidth="116.80000305175781" text="Imię" />
             <TableColumn fx:id="lastName" prefWidth="132.7999267578125" text="Nazwisko" />
-            <TableColumn fx:id="birthDayDate" prefWidth="110.39996337890625" text="Data urodzenia" />
-            <TableColumn fx:id="sex" minWidth="0.0" prefWidth="36.79998779296875" text="Płeć" />
-            <TableColumn fx:id="position" prefWidth="124.0" text="Stanowisko" />
-            <TableColumn fx:id="salary" minWidth="0.0" prefWidth="138.4000244140625" text="Wynagrodzenie" />
-            <TableColumn fx:id="work_from" prefWidth="206.0" text="Rozpoczęcie pracy" />
+            <TableColumn fx:id="birthDayDate" prefWidth="156.0" text="Data urodzenia" />
+            <TableColumn fx:id="sex" minWidth="0.0" prefWidth="49.5999755859375" text="Płeć" />
+            <TableColumn fx:id="position" prefWidth="108.00006103515625" text="Stanowisko" />
+            <TableColumn fx:id="salary" minWidth="0.0" prefWidth="128.7999267578125" text="Wynagrodzenie" />
+            <TableColumn fx:id="work_from" prefWidth="175.99981689453125" text="Rozpoczęcie pracy" />
          </columns>
       </TableView>
    </children>

@@ -5,30 +5,25 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Employee;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.net.URL;
 import java.sql.*;
-import java.util.ResourceBundle;
 
-import static mysqlCommands.SelectEmployeesQuerys.*;
+import static mysqlCommands.employeeCommands.SelectEmployeesQuerys.*;
 import static db.DBConnector.getConnection;
-import static mysqlCommands.DeleteEmployeeQuery.*;
 
-public class EmployeeMainPanelController implements Initializable {
+public class EmployeeMainPanelController {
 
     Statement statement = null;
     Connection connection = null;
@@ -66,8 +61,18 @@ public class EmployeeMainPanelController implements Initializable {
     ObservableList<Employee> observableList = FXCollections.observableArrayList();
 
     Employee employeeToUpdate;
+    Employee employeeToDelete;
 
-    public void selectAllEmployees() {
+    /**
+     * <p>The method at the beginning removes all results from {@code tableViewEmployees} and sets opacity to 1.</p>
+     * <p>Establishes a connection via {@link Connection} {@code connection = getConnection()}.</p>
+     * <p>Then execute the query {@code SELECT_ALL_FROM_EMPLOYEES}.</p>
+     * Using {@code while(resultSet.next())} pulls out all employees and adds them to the {@link ObservableList} {@code observableList}.
+     * <p>At the end closes all connections.</p>
+     *
+     * @throws SQLException
+     */
+    public void selectAllEmployees() throws SQLException {
 
         tableViewEmployees.getItems().clear();
         tableViewEmployees.setOpacity(1);
@@ -97,8 +102,21 @@ public class EmployeeMainPanelController implements Initializable {
         salary.setCellValueFactory(new PropertyValueFactory<>("salary"));
         work_from.setCellValueFactory(new PropertyValueFactory<>("work_from"));
         tableViewEmployees.setItems(observableList);
+
+        if (statement != null) {
+            statement.close();
+        }
+        if (connection != null) {
+            connection.close();
+        }
+        if (resultSet != null) {
+            resultSet.close();
+        }
     }
 
+    /**
+     * <p>Open a new window from the {@link fxmlFiles.employeeFXML} / AddEmployeeWindow.fxml files.</p>
+     */
     public void addEmployeeWindowLoader() {
 
         try {
@@ -114,35 +132,39 @@ public class EmployeeMainPanelController implements Initializable {
     }
 
     /**
-     * The method by which we can delete the employee chosen by us in the main panel.
-     * By deleting, we are asking if we really want to do it.
-     * After selecting "yes", the employee is removed from the database and the view of employees is refreshed.
+     * <p>Method set {@link TableView} field {@code tableViewEmployee} on the value of the
+     * user-selected fields in the tableView from {@link controller.employees.EmployeeMainPanelController}</p>
+     *
+     * <p>And then open a window from {@link fxmlFiles.employeeFXML} / AcceptDeleteEmployee.fxml </p>
+     * <p> If the user does not choose a government employee, he will be informed "No employee selected!"</p>
      *
      * @throws SQLException
      */
-    public void deleteSelectedEmployee() throws SQLException {
+    public void deleteSelectedEmployee() throws IOException {
 
-        int p = JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz usunąć tego pracownika?", "Usuwanie pracownika", JOptionPane.YES_NO_OPTION);
-
-        if (p == 0) {
-            try {
-                Employee employeeToDelete = tableViewEmployees.getSelectionModel().getSelectedItem();
-                statement = connection.prepareStatement(DELETE_EMPLOYEE_BY_ID);
-                ((PreparedStatement) statement).setInt(1, employeeToDelete.getEmp_id());
-                ((PreparedStatement) statement).executeUpdate();
-
-                selectAllEmployees();
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
-
-            statement.close();
-            connection.close();
-        }
+        if (tableViewEmployees.getSelectionModel().getSelectedItem() != null) {
+            getInstanceOfEmpMainPanel().setEmployeeToDelete(tableViewEmployees.getSelectionModel().getSelectedItem());
+            AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/employeeFXML/AcceptDeleteEmployee.fxml"));
+            Scene gameSceneView = new Scene(gameViewParent);
+            Stage newWindow = new Stage();
+            newWindow.setScene(gameSceneView);
+            newWindow.setTitle("Dodaj nowego pracownika");
+            newWindow.show();
+        } else JOptionPane.showMessageDialog(new Frame(), "Nie wybrano pracownika!");
     }
 
+    /**
+     * <p>Method set {@link TableView} field {@code tableViewEmployee} on the value of the
+     * user-selected fields in the tableView from {@link controller.employees.EmployeeMainPanelController}</p>
+     *
+     * <p>And then open a window from {@link fxmlFiles.employeeFXML} / UpdateEmployeeWindow.fxml </p>
+     * <p> If the user does not choose a government employee, he will be informed "No employee selected!"</p>
+     *
+     * @throws SQLException
+     */
     public void updateEmployeeDataWindowLoader() throws IOException {
 
+        if (tableViewEmployees.getSelectionModel().getSelectedItem() != null) {
             getInstanceOfEmpMainPanel().setEmployeeToUpdate(tableViewEmployees.getSelectionModel().getSelectedItem());
 
             AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/employeeFXML/UpdateEmployeeWindow.fxml"));
@@ -152,7 +174,15 @@ public class EmployeeMainPanelController implements Initializable {
             newWindow.setTitle("Zmień dane pracownika");
             newWindow.show();
         }
+        else JOptionPane.showMessageDialog(new Frame(), "Nie wybrano pracownika!");
+    }
 
+    /**
+     *  <p>Method load the main window based on {@link fxmlFiles} / MainMenuPanel.fxml </p>
+     *
+     *  @param event
+     *  @throws IOException
+     */
     public void backToPreviousWindow(ActionEvent event) throws IOException {
 
         AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/MainMenuPanel.fxml"));
@@ -163,15 +193,19 @@ public class EmployeeMainPanelController implements Initializable {
         gameWindow.show();
     }
 
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
-
     public Employee getEmployeeToUpdate() {
         return employeeToUpdate;
     }
 
     public void setEmployeeToUpdate(Employee employeeToUpdate) {
         this.employeeToUpdate = employeeToUpdate;
+    }
+
+    public Employee getEmployeeToDelete() {
+        return employeeToDelete;
+    }
+
+    public void setEmployeeToDelete(Employee employeeToDelete) {
+        this.employeeToDelete = employeeToDelete;
     }
 }

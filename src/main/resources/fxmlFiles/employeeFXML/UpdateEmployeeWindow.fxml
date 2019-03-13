@@ -12,6 +12,6 @@
       <TextField fx:id="sexTextFieldUpdate" layoutX="15.0" layoutY="125.0" prefHeight="26.0" prefWidth="291.0" />
       <TextField fx:id="positionTextFieldUpdate" layoutX="15.0" layoutY="160.0" prefHeight="26.0" prefWidth="291.0" />
       <TextField fx:id="salaryTextFieldUpdate" layoutX="15.0" layoutY="195.0" prefHeight="26.0" prefWidth="291.0" />
-      <Button layoutX="15.0" layoutY="247.0" mnemonicParsing="false" onAction="#saveEmployeeUpdate" prefHeight="35.0" prefWidth="128.0" text="Zapisz zmiany" />
+      <Button fx:id="updateAndCloseButton" layoutX="15.0" layoutY="247.0" mnemonicParsing="false" onAction="#saveEmployeeUpdate" prefHeight="35.0" prefWidth="128.0" text="Zapisz zmiany" />
    </children>
 </AnchorPane>
