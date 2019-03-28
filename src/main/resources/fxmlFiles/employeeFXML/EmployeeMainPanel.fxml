@@ -21,9 +21,9 @@
       </Pane>
       <Pane layoutX="8.0" layoutY="110.0" prefHeight="494.0" prefWidth="166.0" styleClass="backgroundForPanelWithOptions" stylesheets="@../../aplication.css">
          <children>
-            <Button fx:id="loadAllEmployeesButton" layoutX="21.0" layoutY="15.0" mnemonicParsing="false" onAction="#selectAllEmployees" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Wyświetl" textFill="#927e7e" />
-            <Button fx:id="openAddEmployeeWindow" layoutX="21.0" layoutY="80.0" mnemonicParsing="false" onAction="#addEmployeeWindowLoader" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Dodaj" textFill="#927e7e" />
-            <Button layoutX="21.0" layoutY="145.0" mnemonicParsing="false" onAction="#deleteSelectedEmployee" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Usuń" textFill="#927e7e" />
+            <Button fx:id="loadAllEmployeesButton" layoutX="21.0" layoutY="15.0" mnemonicParsing="false" onAction="#selectAll" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Wyświetl" textFill="#927e7e" />
+            <Button fx:id="openAddEmployeeWindow" layoutX="21.0" layoutY="80.0" mnemonicParsing="false" onAction="#add" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Dodaj" textFill="#927e7e" />
+            <Button layoutX="21.0" layoutY="145.0" mnemonicParsing="false" onAction="#deleteSelected" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Usuń" textFill="#927e7e" />
             <Button layoutX="21.0" layoutY="275.0" mnemonicParsing="false" onAction="#backToPreviousWindow" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Powrót" textFill="#927e7e" />
             <Button layoutX="21.0" layoutY="210.0" mnemonicParsing="false" onAction="#updateEmployeeDataWindowLoader" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Edytuj" textFill="#927e7e" />
          </children>

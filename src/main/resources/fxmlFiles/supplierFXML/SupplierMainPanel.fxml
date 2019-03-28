@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="empMainPanelPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.suppliers.SupplierMainPanelController">
+   <children>
+      <Pane layoutX="-2.0" prefHeight="74.0" prefWidth="1300.0" styleClass="backgroundForPanelWithOptions" stylesheets="@../../aplication.css">
+         <children>
+            <Text layoutX="272.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Panel do zarządzania dostawcami" textAlignment="CENTER" wrappingWidth="755.7367248535156">
+               <font>
+                  <Font size="41.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Pane layoutX="8.0" layoutY="110.0" prefHeight="494.0" prefWidth="166.0" styleClass="backgroundForPanelWithOptions" stylesheets="@../../aplication.css">
+         <children>
+            <Button layoutX="21.0" layoutY="15.0" mnemonicParsing="false" onAction="#selectAll" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Wyświetl" textFill="#927e7e" />
+            <Button layoutX="21.0" layoutY="80.0" mnemonicParsing="false" onAction="#add" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Dodaj" textFill="#927e7e" />
+            <Button layoutX="21.0" layoutY="145.0" mnemonicParsing="false" onAction="#deleteSelected" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Usuń" textFill="#927e7e" />
+            <Button layoutX="21.0" layoutY="340.0" mnemonicParsing="false" onAction="#backToPreviousWindow" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Powrót" textFill="#927e7e" />
+            <Button layoutX="21.0" layoutY="210.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Edytuj" textFill="#927e7e" />
+            <Button fx:id="orderButton" layoutX="21.0" layoutY="275.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="125.0" text="Zamów" />
+         </children>
+      </Pane>
+      <TableView fx:id="tableViewSuppliers" layoutX="182.0" layoutY="114.0" prefHeight="486.0" prefWidth="1106.0">
+         <columns>
+            <TableColumn fx:id="supplier_id" prefWidth="30.399993896484375" text="ID" />
+            <TableColumn fx:id="name" prefWidth="139.19996643066406" text="Nazwa" />
+            <TableColumn fx:id="type_of_products" prefWidth="82.4000244140625" text="Produkt" />
+            <TableColumn fx:id="representative" prefWidth="159.19998168945312" text="Przedstawiciel" />
+            <TableColumn fx:id="contact" prefWidth="139.2000732421875" text="Kontakt" />
+            <TableColumn fx:id="city" prefWidth="169.5999755859375" text="Miasto" />
+            <TableColumn fx:id="address" prefWidth="187.20013427734375" text="Adres" />
+            <TableColumn fx:id="email" minWidth="0.0" prefWidth="201.60009765625" text="e-mail" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

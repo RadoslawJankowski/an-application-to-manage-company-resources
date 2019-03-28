@@ -17,7 +17,12 @@
             </ImageView>
             <Button fx:id="empWindowButtonLoader" layoutX="5.0" layoutY="33.0" mnemonicParsing="false" onAction="#employeeWindowLoader" prefHeight="43.0" prefWidth="125.0" stylesheets="@../aplication.css" text="Pracownicy" textFill="#927e7e" />
             <Button layoutX="5.0" layoutY="103.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="125.0" stylesheets="@../aplication.css" text="Finsanse" textFill="#927e7e" />
-            <Button layoutX="5.0" layoutY="173.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="125.0" stylesheets="@../aplication.css" text="Dostawcy" textFill="#927e7e" />
+            <Button layoutX="5.0" layoutY="173.0" mnemonicParsing="false" onAction="#supplierWindowLoader" prefHeight="43.0" prefWidth="125.0" stylesheets="@../aplication.css" text="Dostawcy" textFill="#927e7e" />
+            <ImageView fitHeight="52.0" fitWidth="61.0" layoutX="141.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/supplier-icon.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

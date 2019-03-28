@@ -9,7 +9,7 @@ import java.awt.*;
 import java.math.BigDecimal;
 import java.sql.*;
 
-import static mysqlCommands.employeeCommands.InsertIntoEmployeesQuerys.*;
+import static mysqlCommands.employeeCommands.InsertIntoTableQuerys.*;
 import static db.DBConnector.getConnection;
 
 public class AddEmployeeWindowController {

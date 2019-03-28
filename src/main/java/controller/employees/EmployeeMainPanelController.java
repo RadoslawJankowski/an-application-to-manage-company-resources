@@ -1,5 +1,6 @@
 package controller.employees;
 
+import controller.interfaces.GeneralMethodsOfClasses;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +14,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Employee;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -23,7 +23,7 @@ import java.sql.*;
 import static mysqlCommands.employeeCommands.SelectEmployeesQuerys.*;
 import static db.DBConnector.getConnection;
 
-public class EmployeeMainPanelController {
+public class EmployeeMainPanelController implements GeneralMethodsOfClasses {
 
     Statement statement = null;
     Connection connection = null;
@@ -64,6 +64,22 @@ public class EmployeeMainPanelController {
     Employee employeeToDelete;
 
     /**
+     *  <p>Method load the main window based on {@link fxmlFiles} / MainMenuPanel.fxml </p>
+     *
+     *  @param event
+     *  @throws IOException
+     */
+    @Override
+    public void backToPreviousWindow(ActionEvent event) throws IOException {
+        AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/MainMenuPanel.fxml"));
+        Scene gameSceneView = new Scene(gameViewParent);
+        Stage gameWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        gameWindow.setScene(gameSceneView);
+        gameWindow.show();
+    }
+
+    /**
      * <p>The method at the beginning removes all results from {@code tableViewEmployees} and sets opacity to 1.</p>
      * <p>Establishes a connection via {@link Connection} {@code connection = getConnection()}.</p>
      * <p>Then execute the query {@code SELECT_ALL_FROM_EMPLOYEES}.</p>
@@ -72,7 +88,8 @@ public class EmployeeMainPanelController {
      *
      * @throws SQLException
      */
-    public void selectAllEmployees() throws SQLException {
+    @Override
+    public void selectAll() throws SQLException {
 
         tableViewEmployees.getItems().clear();
         tableViewEmployees.setOpacity(1);
@@ -117,7 +134,8 @@ public class EmployeeMainPanelController {
     /**
      * <p>Open a new window from the {@link fxmlFiles.employeeFXML} / AddEmployeeWindow.fxml files.</p>
      */
-    public void addEmployeeWindowLoader() {
+    @Override
+    public void add() {
 
         try {
             AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/employeeFXML/AddEmployeeWindow.fxml"));
@@ -140,7 +158,8 @@ public class EmployeeMainPanelController {
      *
      * @throws SQLException
      */
-    public void deleteSelectedEmployee() throws IOException {
+    @Override
+    public void deleteSelected() throws IOException {
 
         if (tableViewEmployees.getSelectionModel().getSelectedItem() != null) {
             getInstanceOfEmpMainPanel().setEmployeeToDelete(tableViewEmployees.getSelectionModel().getSelectedItem());
@@ -177,22 +196,6 @@ public class EmployeeMainPanelController {
         else JOptionPane.showMessageDialog(new Frame(), "Nie wybrano pracownika!");
     }
 
-    /**
-     *  <p>Method load the main window based on {@link fxmlFiles} / MainMenuPanel.fxml </p>
-     *
-     *  @param event
-     *  @throws IOException
-     */
-    public void backToPreviousWindow(ActionEvent event) throws IOException {
-
-        AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/MainMenuPanel.fxml"));
-        Scene gameSceneView = new Scene(gameViewParent);
-        Stage gameWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        gameWindow.setScene(gameSceneView);
-        gameWindow.show();
-    }
-
     public Employee getEmployeeToUpdate() {
         return employeeToUpdate;
     }
@@ -208,4 +211,5 @@ public class EmployeeMainPanelController {
     public void setEmployeeToDelete(Employee employeeToDelete) {
         this.employeeToDelete = employeeToDelete;
     }
+
 }

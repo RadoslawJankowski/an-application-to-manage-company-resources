@@ -1,4 +1,4 @@
-package controller.employees;
+package controller.suppliers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,45 +11,45 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static controller.employees.EmployeeMainPanelController.getInstanceOfEmpMainPanel;
+import static controller.suppliers.SupplierMainPanelController.getInstanceOfSuppMainPanel;
 import static db.DBConnector.getConnection;
-import static mysqlCommands.employeeCommands.DeleteQueries.DELETE_EMPLOYEE_BY_ID;
+import static mysqlCommands.employeeCommands.DeleteQueries.DELETE_SUPPLIER_BY_ID;
 
-public class DeleteEmployeeController {
+public class DeleteSupplierController {
 
     Statement statement;
 
     Connection connection;
 
     @FXML
-    TextField empIdToDelete;
+    TextField supplierIdToDelete;
 
     @FXML
     Button acceptDelete;
 
     /**
-     *<p>The method checks whether the data from {@link TextField}.{@code empIdToDelete } is equal to {@code employeToDelete.getEmpId()},
-     * which has been downgraded in the {@code deleteSelectedEmployee()} from {@link EmployeeMainPanelController}.</p>
+     *<p>The method checks whether the data from {@link TextField}.{@code supplierIdToDelete } is equal to {@code supplierToDelete.getSupplierId()},
+     * which has been downgraded in the {@code deleteSelectedSupplier()} from {@link SupplierMainPanelController}.</p>
      * <p>If the values ​​are equal then it establishes the connection and prepares the statement</p>
-     * and sets the id entered by {@code deleteSelectedEmployee()} as a value in the command.
+     * and sets the id entered by {@code deleteSelectedSupplier()} as a value in the command.
      * Closes all connections and informs about the correct removal of the employee and closes the window.
      * In other cases, it informs about the wrong id
      */
-    public void acceptDeleteEmployeeButtonPushed() {
+    public void acceptDeleteSupplierButtonPushed() {
 
         int p = JOptionPane.showConfirmDialog(null,
                 "Potwierdzasz usunięcie?",
-                "Usunięcie pracownika",
+                "Usuwanie dostawcy",
                 JOptionPane.YES_NO_OPTION);
         if (p == 0) {
-            if (empIdToDelete.getText().contains(String.valueOf(getInstanceOfEmpMainPanel().employeeToDelete.getEmp_id()))) {
+            if (supplierIdToDelete.getText().contains(String.valueOf(getInstanceOfSuppMainPanel().supplierToDelete.getSupplier_id()))) {
                 try {
                     connection = getConnection();
-                    statement = connection.prepareStatement(DELETE_EMPLOYEE_BY_ID);
-                    ((PreparedStatement) statement).setInt(1, getInstanceOfEmpMainPanel().employeeToDelete.getEmp_id());
+                    statement = connection.prepareStatement(DELETE_SUPPLIER_BY_ID);
+                    ((PreparedStatement) statement).setInt(1, getInstanceOfSuppMainPanel().supplierToDelete.getSupplier_id());
                     ((PreparedStatement) statement).executeUpdate();
 
-                    JOptionPane.showMessageDialog(new Frame(), "Pracownik został usunięty z bazy danych");
+                    JOptionPane.showMessageDialog(new Frame(), "Dostawca został usunięty z bazy danych");
                 } catch (SQLException e) {
                     System.out.println(e);
 

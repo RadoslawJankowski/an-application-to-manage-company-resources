@@ -43,7 +43,7 @@ public class UpdateEmployeeController implements Initializable {
 
         int p = JOptionPane.showConfirmDialog(null,
                 "Potwierdzasz zmiany?",
-                "Edytor danych pracownika" + getInstanceOfEmpMainPanel().employeeToUpdate.getEmp_id(),
+                "Edytor danych pracownika ID: " + getInstanceOfEmpMainPanel().employeeToUpdate.getEmp_id(),
                 JOptionPane.YES_NO_OPTION);
         if (p == 0) {
             connection = getConnection();

@@ -7,7 +7,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +24,7 @@ public class Main extends Application {
                  connection = DBConnector.getConnection();
             statement = connection.createStatement();
             statement.executeUpdate(TableModels.EMPLOYEE_TABLE);
+            statement.executeUpdate(TableModels.SUPPLIER_TABLE);
 
         } catch (SQLException ex) {
             // handle any errors

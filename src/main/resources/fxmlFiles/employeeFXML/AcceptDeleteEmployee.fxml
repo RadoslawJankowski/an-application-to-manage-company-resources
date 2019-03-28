@@ -9,7 +9,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="172.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.employees.DeleteEmployeeController">
    <children>
       <TextField fx:id="empIdToDelete" layoutX="14.0" layoutY="132.0" prefHeight="26.0" prefWidth="202.0" />
-      <Text layoutX="14.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wprowadz ID pracownika, którego chcesz usunąc, aby zatwierdzić usuwanie" wrappingWidth="366.1367073059082">
+      <Text layoutX="14.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wprowadz ID pracownika, którego chcesz usunąc, aby zatwierdzić usunięcie" wrappingWidth="366.1367073059082">
          <font>
             <Font size="28.0" />
          </font>
