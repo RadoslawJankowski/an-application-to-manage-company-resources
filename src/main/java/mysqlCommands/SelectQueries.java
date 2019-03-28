@@ -1,6 +1,6 @@
-package mysqlCommands.employeeCommands;
+package mysqlCommands;
 
-public class SelectEmployeesQuerys {
+public class SelectQueries {
 
     /**
      * {@value SELECT_ALL_FROM_EMPLOYEES}

@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 
 import static controller.employees.EmployeeMainPanelController.getInstanceOfEmpMainPanel;
 import static db.DBConnector.getConnection;
-import static mysqlCommands.employeeCommands.UpdateEmployeeQuery.UPDATE_EMPLOYEE;
+import static mysqlCommands.UpdateQueries.UPDATE_EMPLOYEE;
 
 public class UpdateEmployeeController implements Initializable {
 

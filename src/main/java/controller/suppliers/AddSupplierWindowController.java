@@ -2,13 +2,14 @@ package controller.suppliers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 
 import static db.DBConnector.getConnection;
-import static mysqlCommands.employeeCommands.InsertIntoTableQuerys.INSERT_INTO_SUPPLIERS;
+import static mysqlCommands.InsertIntoTableQueries.INSERT_INTO_SUPPLIERS;
 
 public class AddSupplierWindowController {
 
@@ -23,6 +24,16 @@ public class AddSupplierWindowController {
     @FXML
     Button addSupplierButton;
 
+    /**
+     *
+     <p>The method establishes a connection through {@link Connection}
+     connection = getConnection () and prepares statement = connection.prepareStatement (INSERT_INTO_SUPPLIERS).</p>
+     <p>Gets data from the {@link TextField} and uses {@link PreparedStatement} to set values ​​to the query, respectively.</p>
+     <p>Checks whether the given gender meets the requirements and then asks the user to confirm the operation.</p>
+     If everything above is done, it closes all connections and closes the window of adding an supplier.
+     Otherwise, it informs you that the data has been entered incorrectly.
+     * @throws SQLException
+     */
     public void addSupplierButtonPushed() throws SQLException {
         int p = JOptionPane.showConfirmDialog(null, "Czy potwierdzasz dodanie?", "Dodawanie dostawcy", JOptionPane.YES_NO_OPTION);
         if (p == 0) {

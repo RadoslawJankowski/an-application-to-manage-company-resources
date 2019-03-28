@@ -23,7 +23,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import static db.DBConnector.getConnection;
-import static mysqlCommands.employeeCommands.SelectEmployeesQuerys.SELECT_ALL_FROM_SUPPLIERS;
+import static mysqlCommands.SelectQueries.SELECT_ALL_FROM_SUPPLIERS;
 
 public class SupplierMainPanelController implements GeneralMethodsOfClasses {
 
@@ -61,6 +61,7 @@ public class SupplierMainPanelController implements GeneralMethodsOfClasses {
     TableColumn<Supplier, String > email;
 
     Supplier supplierToDelete;
+    Supplier supplierToUpdate;
 
     ObservableList<Supplier> observableList = FXCollections.observableArrayList();
 
@@ -155,7 +156,39 @@ public class SupplierMainPanelController implements GeneralMethodsOfClasses {
         } else JOptionPane.showMessageDialog(new Frame(), "Nie wybrano dostawcy!");
     }
 
+    /**
+     * <p>Method set {@link TableView} field {@code tableViewSupplier} on the value of the
+     * user-selected fields in the tableView from {@link controller.suppliers.SupplierMainPanelController}</p>
+     *
+     * <p>And then open a window from {@link fxmlFiles.supplierFXML} / UpdateSupplierWindow.fxml </p>
+     * <p> If the user does not choose a government employee, he will be informed "No supplier selected!"</p>
+     *
+     * @throws SQLException
+     */
+    public void updateSupplierDataWindowLoader() throws IOException {
+
+        if (tableViewSuppliers.getSelectionModel().getSelectedItem() != null) {
+            getInstanceOfSuppMainPanel().setSupplierToUpdate(tableViewSuppliers.getSelectionModel().getSelectedItem());
+
+            AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/supplierFXML/UpdateSupplierWindow.fxml"));
+            Scene gameSceneView = new Scene(gameViewParent);
+            Stage newWindow = new Stage();
+            newWindow.setScene(gameSceneView);
+            newWindow.setTitle("Zmień dane dostawcy");
+            newWindow.show();
+        }
+        else JOptionPane.showMessageDialog(new Frame(), "Nie wybrano dostawcy!");
+    }
+
     public void setSupplierToDelete(Supplier supplierToDelete) {
         this.supplierToDelete = supplierToDelete;
+    }
+
+    public Supplier getSupplierToUpdate() {
+        return supplierToUpdate;
+    }
+
+    public void setSupplierToUpdate(Supplier supplierToUpdate) {
+        this.supplierToUpdate = supplierToUpdate;
     }
 }

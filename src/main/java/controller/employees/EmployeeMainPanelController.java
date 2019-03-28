@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.*;
 
-import static mysqlCommands.employeeCommands.SelectEmployeesQuerys.*;
+import static mysqlCommands.SelectQueries.*;
 import static db.DBConnector.getConnection;
 
 public class EmployeeMainPanelController implements GeneralMethodsOfClasses {

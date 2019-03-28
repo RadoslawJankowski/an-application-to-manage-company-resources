@@ -13,7 +13,7 @@ import java.sql.Statement;
 
 import static controller.employees.EmployeeMainPanelController.getInstanceOfEmpMainPanel;
 import static db.DBConnector.getConnection;
-import static mysqlCommands.employeeCommands.DeleteQueries.DELETE_EMPLOYEE_BY_ID;
+import static mysqlCommands.DeleteQueries.DELETE_EMPLOYEE_BY_ID;
 
 public class DeleteEmployeeController {
 

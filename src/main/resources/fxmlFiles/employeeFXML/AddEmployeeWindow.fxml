@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
@@ -13,5 +14,6 @@
       <TextField fx:id="positionTextField" layoutX="15.0" layoutY="160.0" prefHeight="26.0" prefWidth="291.0" promptText="Stanowisko - w formie id stanowiska" />
       <TextField fx:id="salaryTextField" layoutX="15.0" layoutY="195.0" prefHeight="26.0" prefWidth="291.0" promptText="Wynagrodzenie - grosze podaj po '.' " />
       <Button fx:id="addEmployeeButton" layoutX="15.0" layoutY="247.0" mnemonicParsing="false" onAction="#addEmployeeButtonPushed" prefHeight="35.0" prefWidth="87.0" text="Dodaj" />
+      <TextArea layoutX="345.0" layoutY="16.0" prefHeight="187.0" prefWidth="200.0" text="          Stanowiska&#10;1. Dyrektor&#10;2. Logistyk&#10;3. Sekretarka&#10;4. Asystentka/Asystent&#10;5. Kierownik&#10;6. Zastępca kierownika&#10;7. Obsługa" />
    </children>
 </AnchorPane>

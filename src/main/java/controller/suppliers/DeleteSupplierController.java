@@ -13,7 +13,7 @@ import java.sql.Statement;
 
 import static controller.suppliers.SupplierMainPanelController.getInstanceOfSuppMainPanel;
 import static db.DBConnector.getConnection;
-import static mysqlCommands.employeeCommands.DeleteQueries.DELETE_SUPPLIER_BY_ID;
+import static mysqlCommands.DeleteQueries.DELETE_SUPPLIER_BY_ID;
 
 public class DeleteSupplierController {
 

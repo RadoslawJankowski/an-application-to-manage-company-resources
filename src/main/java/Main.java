@@ -1,8 +1,7 @@
-
 import db.DBConnector;
 import javafx.scene.layout.AnchorPane;
 import jdk.nashorn.internal.runtime.Version;
-import mysqlTablesSchema.TableModels;
+import mysqlTablesSchema.TablesModels;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,20 +10,63 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static mysqlCommands.CreateDatabase.CREATE_DATABASE;
+import static mysqlCommands.InsertIntoTableQueries.BASIC_EMPLOYEE_POSITIONS;
+import static mysqlCommands.InsertIntoTableQueries.BASIC_TYPES_OF_PRODUCTS;
+
 public class Main extends Application {
 
-    public static void main(String[] args) throws Exception {
+    private static Object Result;
+
+    public static void main(String[] args) {
 
         Statement statement = null;
         Connection connection = null;
         ResultSet resultSet = null;
 
-
         try {
-                 connection = DBConnector.getConnection();
+                 connection = DBConnector.getConnectionWithoutDatabase();
             statement = connection.createStatement();
-            statement.executeUpdate(TableModels.EMPLOYEE_TABLE);
-            statement.executeUpdate(TableModels.SUPPLIER_TABLE);
+            Result = statement.executeUpdate(CREATE_DATABASE);
+            statement.close();
+            connection.close();
+
+            connection = DBConnector.getConnection();
+            statement = connection.createStatement();
+            statement.executeUpdate(TablesModels.EMPLOYEE_POSITIONS);
+            statement.executeUpdate(TablesModels.EMPLOYEE_TABLE);
+            statement.executeUpdate(TablesModels.TYPES_OF_PRODUCTS);
+            statement.executeUpdate(TablesModels.SUPPLIER_TABLE);
+            statement.executeUpdate(TablesModels.PRODUCT_TABLE);
+            statement = connection.prepareStatement(BASIC_TYPES_OF_PRODUCTS);
+            ((PreparedStatement) statement).setString(1, "NABIAŁ");
+            ((PreparedStatement) statement).executeUpdate();
+            ((PreparedStatement) statement).setString(1, "PIECZYWO");
+            ((PreparedStatement) statement).executeUpdate();
+            ((PreparedStatement) statement).setString(1, "OWOCE");
+            ((PreparedStatement) statement).executeUpdate();
+            ((PreparedStatement) statement).setString(1, "WARZYWA");
+            ((PreparedStatement) statement).executeUpdate();
+            ((PreparedStatement) statement).setString(1, "MIĘSO");
+            ((PreparedStatement) statement).executeUpdate();
+            ((PreparedStatement) statement).setString(1, "SŁODYCZE");
+            ((PreparedStatement) statement).executeUpdate();
+
+            statement = connection.prepareStatement(BASIC_EMPLOYEE_POSITIONS);
+            ((PreparedStatement) statement).setString(1 , "DYREKTOR");
+            ((PreparedStatement) statement).executeUpdate();
+            ((PreparedStatement) statement).setString(1 , "LOGISTYK");
+            ((PreparedStatement) statement).executeUpdate();
+            ((PreparedStatement) statement).setString(1 , "SEKRETARKA");
+            ((PreparedStatement) statement).executeUpdate();
+            ((PreparedStatement) statement).setString(1 , "ASYSTENTKA");
+            ((PreparedStatement) statement).executeUpdate();
+            ((PreparedStatement) statement).setString(1 , "KIEROWNIK");
+            ((PreparedStatement) statement).executeUpdate();
+            ((PreparedStatement) statement).setString(1 , "ZASTĘPCA KIEROWNIKA");
+            ((PreparedStatement) statement).executeUpdate();
+            ((PreparedStatement) statement).setString(1 , "OBSŁUGA");
+            ((PreparedStatement) statement).executeUpdate();
 
         } catch (SQLException ex) {
             // handle any errors

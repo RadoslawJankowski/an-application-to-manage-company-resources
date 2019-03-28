@@ -1,4 +1,4 @@
-package mysqlCommands.employeeCommands;
+package mysqlCommands;
 
 public class DeleteQueries {
 

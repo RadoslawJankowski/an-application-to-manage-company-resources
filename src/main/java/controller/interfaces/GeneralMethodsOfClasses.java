@@ -35,4 +35,5 @@ public interface GeneralMethodsOfClasses {
      * @throws IOException
      */
     void deleteSelected() throws IOException;
+
 }
