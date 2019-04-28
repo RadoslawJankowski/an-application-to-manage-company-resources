@@ -26,6 +26,13 @@ public class Employee {
         this.work_from = work_from;
     }
 
+    public void addInput(int count)
+    {
+        for(int i = 1; i < count; i++){
+
+        }
+    }
+
     public int getEmp_id() {
         return emp_id;
     }

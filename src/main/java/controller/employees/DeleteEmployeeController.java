@@ -13,8 +13,13 @@ import java.sql.Statement;
 
 import static controller.employees.EmployeeMainPanelController.getInstanceOfEmpMainPanel;
 import static db.DBConnector.getConnection;
-import static mysqlCommands.DeleteQueries.DELETE_EMPLOYEE_BY_ID;
+import static mysqlCommands.deleteQueries.employees.DeleteFromEmployeesQueries.DELETE_EMPLOYEE_BY_ID;
 
+/**
+ * Controller for the {@code DeleteEmployee.fxml } window.
+ * Methods:
+ * <li> {@link DeleteEmployeeController#acceptDeleteEmployeeButtonPushed()}</li>
+ */
 public class DeleteEmployeeController {
 
     Statement statement;

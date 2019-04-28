@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="addSupplierAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="324.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.suppliers.AddSupplierWindowController">
    <children>
@@ -14,5 +15,12 @@
       <TextField fx:id="addressTextField" layoutX="15.0" layoutY="190.0" prefHeight="26.0" prefWidth="279.0" promptText="Adres" />
       <TextField fx:id="emailTextField" layoutX="14.0" layoutY="225.0" prefHeight="26.0" prefWidth="279.0" promptText="E-mail" />
       <Button fx:id="addSupplierButton" layoutX="15.0" layoutY="266.0" mnemonicParsing="false" onAction="#addSupplierButtonPushed" prefHeight="42.0" prefWidth="98.0" text="Dodaj" />
+      <Text layoutX="363.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Produkty" textAlignment="CENTER" wrappingWidth="191.7366943359375" />
+      <Text layoutX="363.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Nabiał" wrappingWidth="183.73675537109375" />
+      <Text layoutX="363.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Pieczywo" wrappingWidth="173.33673095703125" />
+      <Text layoutX="363.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Owoce" wrappingWidth="191.73668771982193" />
+      <Text layoutX="363.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4. Warzywa" wrappingWidth="183.73674899339676" />
+      <Text layoutX="363.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5. Mięso" wrappingWidth="173.33673387765884" />
+      <Text layoutX="363.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6. Słodycze" wrappingWidth="183.73674899339676" />
    </children>
 </AnchorPane>

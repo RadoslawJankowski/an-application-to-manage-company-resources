@@ -9,9 +9,14 @@ import java.awt.*;
 import java.math.BigDecimal;
 import java.sql.*;
 
-import static mysqlCommands.InsertIntoTableQueries.*;
 import static db.DBConnector.getConnection;
+import static mysqlCommands.insertIntoQueries.employees.InsertIntoEmployeesQueries.INSERT_INTO_EMPLOYEES;
 
+/**
+ * Controller for the {@code AddEmployeeWindow.fxml } window.
+ * Methods:
+ * <li> {@link AddEmployeeWindowController#addEmployeeButtonPushed()}</li>
+ */
 public class AddEmployeeWindowController {
 
     Statement statement = null;

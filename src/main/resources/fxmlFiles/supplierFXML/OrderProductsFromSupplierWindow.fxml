@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.suppliers.OrderProductsFromSupplierWindowController">
+   <children>
+      <TableView fx:id="supplierProductsTableView" layoutX="14.0" layoutY="14.0" prefHeight="422.0" prefWidth="437.0">
+        <columns>
+          <TableColumn fx:id="supplierProductId" prefWidth="50.399964809417725" text="ID" />
+          <TableColumn fx:id="supplierProductName" prefWidth="167.99999237060547" text="Nazwa" />
+            <TableColumn fx:id="supplierProductType" prefWidth="124.0" text="Typ produktu" />
+            <TableColumn fx:id="supplierProductPrice" prefWidth="94.4000244140625" text="Cena" />
+        </columns>
+      </TableView>
+      <TextField fx:id="productAmountTextField" layoutX="466.0" layoutY="103.0" promptText="Podaj ilość sztuk" />
+      <Button fx:id="addToOrderButton" layoutX="466.0" layoutY="145.0" mnemonicParsing="false" onAction="#addToOrderButtonPushed" prefHeight="38.0" prefWidth="205.0" text="Dodaj do zamówienia" />
+      <Text fx:id="orderTotalText" layoutX="465.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Łączna kwota zamowienia:" wrappingWidth="149.60000909864902" />
+      <Text fx:id="orderTotalSum" layoutX="616.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="122.13671875" />
+      <Button fx:id="orderButton" layoutX="465.0" layoutY="397.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" text="Złóż zamówienie" />
+      <Button fx:id="currentOrderView" layoutX="465.0" layoutY="269.0" mnemonicParsing="false" onAction="#showUnfinishedOrderButtonPushed" prefHeight="38.0" prefWidth="206.0" text="Pokaż bieżące zamówienie" />
+   </children>
+</AnchorPane>

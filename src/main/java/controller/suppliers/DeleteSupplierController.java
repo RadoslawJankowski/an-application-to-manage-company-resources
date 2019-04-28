@@ -13,8 +13,13 @@ import java.sql.Statement;
 
 import static controller.suppliers.SupplierMainPanelController.getInstanceOfSuppMainPanel;
 import static db.DBConnector.getConnection;
-import static mysqlCommands.DeleteQueries.DELETE_SUPPLIER_BY_ID;
+import static mysqlCommands.deleteQueries.suppliers.DeleteFromSuppliersQueries.DELETE_SUPPLIER_BY_ID;
 
+/**
+ * Controller for {@code DeleteEmployee.fxml }.
+ * <p>Methods: </p>
+ * <li> {@link DeleteSupplierController#acceptDeleteSupplierButtonPushed()}</li>
+ */
 public class DeleteSupplierController {
 
     Statement statement;

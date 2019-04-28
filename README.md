@@ -1,6 +1,10 @@
 # an-application-to-manage-company-resources
  An application for making human resources, products, cash and commodities available in the company.
 
+
+**Remember to change the username and password in db.DBConnector getConnectionWithoutDatabase () and 
+getConnection () to the username and password for your MySQL to be able to run the program!**
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ENGLISH------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Application for managing the company, employees, documents and suppliers.

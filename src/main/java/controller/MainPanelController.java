@@ -8,6 +8,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+/**
+ * Controller for switching views between Employees, Products, Suppliers, Finance.
+ * <p>Methods:</p>
+ * <li>{@link MainPanelController#employeeWindowLoader(ActionEvent)}</li>
+ * <li>{@link MainPanelController#supplierWindowLoader(ActionEvent)} </li>
+ */
 public class MainPanelController {
 
 

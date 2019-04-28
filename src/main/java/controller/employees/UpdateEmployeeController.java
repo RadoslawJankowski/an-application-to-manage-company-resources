@@ -14,8 +14,14 @@ import java.util.ResourceBundle;
 
 import static controller.employees.EmployeeMainPanelController.getInstanceOfEmpMainPanel;
 import static db.DBConnector.getConnection;
-import static mysqlCommands.UpdateQueries.UPDATE_EMPLOYEE;
+import static mysqlCommands.updateQueries.employees.UpdateEmployees.UPDATE_EMPLOYEE;
 
+/**
+ * Controller for {@code UpdateEmployeeWindow.fxml }.
+ * <p>Methods: </p>
+ * <li> {@link UpdateEmployeeController#saveEmployeeUpdate()}</li>
+ * <li> {@link UpdateEmployeeController#initialize(URL, ResourceBundle)}</li>
+ */
 public class UpdateEmployeeController implements Initializable {
 
     Statement statement = null;

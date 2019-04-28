@@ -1,6 +1,6 @@
 package controller.suppliers;
 
-import controller.interfaces.GeneralMethodsOfClasses;
+import controller.interfaces.GeneralMethodsForMainWindowClassControllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Supplier;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -23,9 +24,26 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import static db.DBConnector.getConnection;
-import static mysqlCommands.SelectQueries.SELECT_ALL_FROM_SUPPLIERS;
+import static mysqlCommands.selectQueries.suppliers.SelectFromSuppliersQueries.SELECT_ALL_FROM_SUPPLIERS;
 
-public class SupplierMainPanelController implements GeneralMethodsOfClasses {
+/**
+ * Main Controller for supplier view
+ * <li>{@code AddSupplierWindow.fxml }</li>
+ * <li>{@code DeleteSupplier.fxml }</li>
+ * <li>{@code OrderProductsFromSupplierWindow.fxml }</li>
+ * <li>{@code ShowUnfinishedOrderWindow.fxml }</li>
+ * <li>{@code SupplierMainPanelController.fxml }</li>
+ * <li>{@code UpdateSupplierWindow.fxml }</li>
+ * <p></p>
+ * <p>Methods:</p>
+ * <li>{@link SupplierMainPanelController#backToPreviousWindow(ActionEvent event)}</li>
+ * <li>{@link SupplierMainPanelController#selectAll()}</li>
+ * <li>{@link SupplierMainPanelController#add()}</li>
+ * <li>{@link SupplierMainPanelController#deleteSelected()}</li>
+ * <li>{@link SupplierMainPanelController#updateSupplierDataWindowLoader()}</li>
+ * <li>{@link SupplierMainPanelController#orderProductsWindowLoader()}</li>
+ */
+public class SupplierMainPanelController implements GeneralMethodsForMainWindowClassControllers {
 
     Statement statement = null;
     Connection connection = null;
@@ -50,21 +68,28 @@ public class SupplierMainPanelController implements GeneralMethodsOfClasses {
     @FXML
     TableColumn<Supplier, Integer> type_of_products;
     @FXML
-    TableColumn<Supplier, String > representative;
+    TableColumn<Supplier, String> representative;
     @FXML
-    TableColumn<Supplier, String > contact;
+    TableColumn<Supplier, String> contact;
     @FXML
-    TableColumn<Supplier, String > city;
+    TableColumn<Supplier, String> city;
     @FXML
-    TableColumn<Supplier, String > address;
+    TableColumn<Supplier, String> address;
     @FXML
-    TableColumn<Supplier, String > email;
+    TableColumn<Supplier, String> email;
 
     Supplier supplierToDelete;
     Supplier supplierToUpdate;
+    Supplier selectedSupplier;
 
     ObservableList<Supplier> observableList = FXCollections.observableArrayList();
 
+    /**
+     * <p>Method load the main window based on {@link fxmlFiles} / MainMenuPanel.fxml </p>
+     *
+     * @param event
+     * @throws IOException
+     */
     @Override
     public void backToPreviousWindow(ActionEvent event) throws IOException {
         AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/MainMenuPanel.fxml"));
@@ -93,6 +118,7 @@ public class SupplierMainPanelController implements GeneralMethodsOfClasses {
         try {
             connection = getConnection();
             resultSet = connection.createStatement().executeQuery(SELECT_ALL_FROM_SUPPLIERS);
+
             while (resultSet.next()) {
                 observableList.add(new Supplier(resultSet.getInt("supplier_id"),
                         resultSet.getString("name"), resultSet.getInt("type_of_products"),
@@ -100,6 +126,7 @@ public class SupplierMainPanelController implements GeneralMethodsOfClasses {
                         resultSet.getString("city"), resultSet.getString("address"),
                         resultSet.getString("email")));
             }
+
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
@@ -147,7 +174,7 @@ public class SupplierMainPanelController implements GeneralMethodsOfClasses {
 
         if (tableViewSuppliers.getSelectionModel().getSelectedItem() != null) {
             getInstanceOfSuppMainPanel().setSupplierToDelete(tableViewSuppliers.getSelectionModel().getSelectedItem());
-            AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/supplierFXML/AcceptDeleteSupplier.fxml"));
+            AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/supplierFXML/DeleteSupplier.fxml"));
             Scene gameSceneView = new Scene(gameViewParent);
             Stage newWindow = new Stage();
             newWindow.setScene(gameSceneView);
@@ -176,8 +203,24 @@ public class SupplierMainPanelController implements GeneralMethodsOfClasses {
             newWindow.setScene(gameSceneView);
             newWindow.setTitle("Zmień dane dostawcy");
             newWindow.show();
-        }
-        else JOptionPane.showMessageDialog(new Frame(), "Nie wybrano dostawcy!");
+        } else JOptionPane.showMessageDialog(new Frame(), "Nie wybrano dostawcy!");
+    }
+
+    public void orderProductsWindowLoader() {
+
+        if (tableViewSuppliers.getSelectionModel().getSelectedItem() != null) {
+            getInstanceOfSuppMainPanel().setSelectedSupplier(tableViewSuppliers.getSelectionModel().getSelectedItem());
+            try {
+                AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/supplierFXML/OrderProductsFromSupplierWindow.fxml"));
+                Scene gameSceneView = new Scene(gameViewParent);
+                Stage newWindow = new Stage();
+                newWindow.setScene(gameSceneView);
+                newWindow.setTitle("Zamów towar");
+                newWindow.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else JOptionPane.showMessageDialog(new Frame(), "Nie wybrano dostawcy!");
     }
 
     public void setSupplierToDelete(Supplier supplierToDelete) {
@@ -190,5 +233,13 @@ public class SupplierMainPanelController implements GeneralMethodsOfClasses {
 
     public void setSupplierToUpdate(Supplier supplierToUpdate) {
         this.supplierToUpdate = supplierToUpdate;
+    }
+
+    public Supplier getSelectedSupplier() {
+        return selectedSupplier;
+    }
+
+    public void setSelectedSupplier(Supplier selectedSupplier) {
+        this.selectedSupplier = selectedSupplier;
     }
 }

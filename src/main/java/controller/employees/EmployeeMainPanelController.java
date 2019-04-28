@@ -1,6 +1,6 @@
 package controller.employees;
 
-import controller.interfaces.GeneralMethodsOfClasses;
+import controller.interfaces.GeneralMethodsForMainWindowClassControllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Employee;
 import javax.swing.*;
@@ -20,10 +21,19 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.*;
 
-import static mysqlCommands.SelectQueries.*;
 import static db.DBConnector.getConnection;
+import static mysqlCommands.selectQueries.employees.SelectFromEmployeesQueries.SELECT_ALL_FROM_EMPLOYEES;
 
-public class EmployeeMainPanelController implements GeneralMethodsOfClasses {
+/**
+ * The main controller for employees view {@code AddEmployeeWindow.fxml }, {@code DeleteEmployee.fxml }, {@code UpdateEmployeeWindow.fxml }.
+ * <p>Methods: </p>
+ * <li> {@link EmployeeMainPanelController#selectAll()}</li>
+ * <li> {@link EmployeeMainPanelController#add()}</li>
+ * <li> {@link EmployeeMainPanelController#deleteSelected()}</li>
+ * <li> {@link EmployeeMainPanelController#updateEmployeeDataWindowLoader()}</li>
+ * <li> {@link EmployeeMainPanelController#backToPreviousWindow(ActionEvent)}</li>
+ */
+public class EmployeeMainPanelController implements GeneralMethodsForMainWindowClassControllers {
 
     Statement statement = null;
     Connection connection = null;
@@ -38,9 +48,12 @@ public class EmployeeMainPanelController implements GeneralMethodsOfClasses {
         return instance;
     }
 
+    private double salaryTotal;
     @FXML
     TableView<Employee> tableViewEmployees;
 
+    @FXML
+    Text totalSalary, salaryText;
     @FXML
     TableColumn<Employee, Integer> emp_id;
     @FXML
@@ -59,25 +72,10 @@ public class EmployeeMainPanelController implements GeneralMethodsOfClasses {
     TableColumn<Employee, Timestamp> work_from;
 
     ObservableList<Employee> observableList = FXCollections.observableArrayList();
+    ObservableList<BigDecimal> salaryList = FXCollections.observableArrayList();
 
     Employee employeeToUpdate;
     Employee employeeToDelete;
-
-    /**
-     *  <p>Method load the main window based on {@link fxmlFiles} / MainMenuPanel.fxml </p>
-     *
-     *  @param event
-     *  @throws IOException
-     */
-    @Override
-    public void backToPreviousWindow(ActionEvent event) throws IOException {
-        AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/MainMenuPanel.fxml"));
-        Scene gameSceneView = new Scene(gameViewParent);
-        Stage gameWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        gameWindow.setScene(gameSceneView);
-        gameWindow.show();
-    }
 
     /**
      * <p>The method at the beginning removes all results from {@code tableViewEmployees} and sets opacity to 1.</p>
@@ -85,11 +83,15 @@ public class EmployeeMainPanelController implements GeneralMethodsOfClasses {
      * <p>Then execute the query {@code SELECT_ALL_FROM_EMPLOYEES}.</p>
      * Using {@code while(resultSet.next())} pulls out all employees and adds them to the {@link ObservableList} {@code observableList}.
      * <p>At the end closes all connections.</p>
+     * <p>Also method summ all salary and print result</p>
      *
      * @throws SQLException
      */
     @Override
     public void selectAll() throws SQLException {
+
+        salaryList.clear();
+        setSalaryTotal(0);
 
         tableViewEmployees.getItems().clear();
         tableViewEmployees.setOpacity(1);
@@ -103,7 +105,13 @@ public class EmployeeMainPanelController implements GeneralMethodsOfClasses {
                         resultSet.getDate("birthDayDate"), resultSet.getString("sex").toUpperCase(),
                         resultSet.getInt("empPosition"), resultSet.getBigDecimal("salary"),
                         resultSet.getTimestamp("work_from")));
+                salaryList.add(resultSet.getBigDecimal("salary"));
             }
+            setSalaryTotal(salaryList.stream().mapToDouble(BigDecimal::doubleValue).sum());
+            if (salaryTotal > 0){
+            salaryText.setOpacity(1);
+            totalSalary.setText(String.valueOf(salaryTotal));}
+
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
@@ -153,7 +161,7 @@ public class EmployeeMainPanelController implements GeneralMethodsOfClasses {
      * <p>Method set {@link TableView} field {@code tableViewEmployee} on the value of the
      * user-selected fields in the tableView from {@link controller.employees.EmployeeMainPanelController}</p>
      *
-     * <p>And then open a window from {@link fxmlFiles.employeeFXML} / AcceptDeleteEmployee.fxml </p>
+     * <p>And then open a window from {@link fxmlFiles.employeeFXML} / DeleteEmployee.fxml </p>
      * <p> If the user does not choose a government employee, he will be informed "No employee selected!"</p>
      *
      * @throws SQLException
@@ -163,7 +171,7 @@ public class EmployeeMainPanelController implements GeneralMethodsOfClasses {
 
         if (tableViewEmployees.getSelectionModel().getSelectedItem() != null) {
             getInstanceOfEmpMainPanel().setEmployeeToDelete(tableViewEmployees.getSelectionModel().getSelectedItem());
-            AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/employeeFXML/AcceptDeleteEmployee.fxml"));
+            AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/employeeFXML/DeleteEmployee.fxml"));
             Scene gameSceneView = new Scene(gameViewParent);
             Stage newWindow = new Stage();
             newWindow.setScene(gameSceneView);
@@ -196,6 +204,22 @@ public class EmployeeMainPanelController implements GeneralMethodsOfClasses {
         else JOptionPane.showMessageDialog(new Frame(), "Nie wybrano pracownika!");
     }
 
+    /**
+     *  <p>Method load the main window based on {@link fxmlFiles} / MainMenuPanel.fxml </p>
+     *
+     *  @param event
+     *  @throws IOException
+     */
+    @Override
+    public void backToPreviousWindow(ActionEvent event) throws IOException {
+        AnchorPane gameViewParent = FXMLLoader.load(getClass().getResource("/fxmlFiles/MainMenuPanel.fxml"));
+        Scene gameSceneView = new Scene(gameViewParent);
+        Stage gameWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        gameWindow.setScene(gameSceneView);
+        gameWindow.show();
+    }
+
     public Employee getEmployeeToUpdate() {
         return employeeToUpdate;
     }
@@ -204,12 +228,11 @@ public class EmployeeMainPanelController implements GeneralMethodsOfClasses {
         this.employeeToUpdate = employeeToUpdate;
     }
 
-    public Employee getEmployeeToDelete() {
-        return employeeToDelete;
-    }
-
     public void setEmployeeToDelete(Employee employeeToDelete) {
         this.employeeToDelete = employeeToDelete;
     }
 
+    public void setSalaryTotal(double salaryTotal) {
+        this.salaryTotal = salaryTotal;
+    }
 }

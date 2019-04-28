@@ -1,5 +1,6 @@
 package controller.suppliers;
 
+import controller.employees.UpdateEmployeeController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,8 +14,14 @@ import java.util.ResourceBundle;
 
 import static controller.suppliers.SupplierMainPanelController.getInstanceOfSuppMainPanel;
 import static db.DBConnector.getConnection;
-import static mysqlCommands.UpdateQueries.UPDATE_SUPPLIER;
+import static mysqlCommands.updateQueries.suppliers.UpdateSuppliers.UPDATE_SUPPLIER;
 
+/**
+ * Controller for {@code UpdateSupplierWindow.fxml }.
+ * <p>Methods:</p>
+ * <li>{@link UpdateEmployeeController#saveEmployeeUpdate()}</li>
+ * <li>{@link UpdateEmployeeController#initialize(URL, ResourceBundle)} </li>
+ */
 public class UpdateSupplierController implements Initializable {
 
     Statement statement = null;

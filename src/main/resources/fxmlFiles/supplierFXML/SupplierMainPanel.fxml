@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="empMainPanelPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.suppliers.SupplierMainPanelController">
    <children>
-      <Pane layoutX="-2.0" prefHeight="74.0" prefWidth="1300.0" styleClass="backgroundForPanelWithOptions" stylesheets="@../../aplication.css">
+      <Pane layoutX="85.0" prefHeight="74.0" prefWidth="1300.0" styleClass="backgroundForPanelWithOptions" stylesheets="@../../aplication.css">
          <children>
             <Text layoutX="272.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Panel do zarządzania dostawcami" textAlignment="CENTER" wrappingWidth="755.7367248535156">
                <font>
@@ -26,10 +26,10 @@
             <Button layoutX="21.0" layoutY="145.0" mnemonicParsing="false" onAction="#deleteSelected" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Usuń" textFill="#927e7e" />
             <Button layoutX="21.0" layoutY="340.0" mnemonicParsing="false" onAction="#backToPreviousWindow" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Powrót" textFill="#927e7e" />
             <Button layoutX="21.0" layoutY="210.0" mnemonicParsing="false" onAction="#updateSupplierDataWindowLoader" prefHeight="43.0" prefWidth="125.0" stylesheets="@../../aplication.css" text="Edytuj" textFill="#927e7e" />
-            <Button fx:id="orderButton" layoutX="21.0" layoutY="275.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="125.0" text="Zamów" textFill="#927e7e" />
+            <Button fx:id="orderButton" layoutX="21.0" layoutY="275.0" mnemonicParsing="false" onAction="#orderProductsWindowLoader" prefHeight="43.0" prefWidth="125.0" text="Zamów" textFill="#927e7e" />
          </children>
       </Pane>
-      <TableView fx:id="tableViewSuppliers" layoutX="182.0" layoutY="114.0" prefHeight="486.0" prefWidth="1106.0">
+      <TableView fx:id="tableViewSuppliers" layoutX="174.0" layoutY="114.0" prefHeight="486.0" prefWidth="1106.0">
          <columns>
             <TableColumn fx:id="supplier_id" prefWidth="30.399993896484375" text="ID" />
             <TableColumn fx:id="name" prefWidth="139.19996643066406" text="Nazwa" />

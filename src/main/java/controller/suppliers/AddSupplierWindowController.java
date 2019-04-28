@@ -4,13 +4,19 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 
 import static db.DBConnector.getConnection;
-import static mysqlCommands.InsertIntoTableQueries.INSERT_INTO_SUPPLIERS;
+import static mysqlCommands.insertIntoQueries.suppliers.InsertIntoSuppliersQueries.INSERT_INTO_SUPPLIERS;
 
+/**
+ * Controller for {@code AddEmployeeWindow.fxml }.
+ * <p>Methods: </p>
+ * <li> {@link AddSupplierWindowController#addSupplierButtonPushed()}</li>
+ */
 public class AddSupplierWindowController {
 
     Statement statement = null;
@@ -47,6 +53,7 @@ public class AddSupplierWindowController {
             ((PreparedStatement) statement).setString(6, addressTextField.getText());
             ((PreparedStatement) statement).setString(7, emailTextField.getText());
             ((PreparedStatement) statement).executeUpdate();
+
             JOptionPane.showMessageDialog(new Frame(), "Dodano nowego dostawcę.");
 
             if (statement != null) {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="551.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.suppliers.ShowUnfinishedOrderWindowController">
+   <children>
+      <TableView fx:id="unfinishedOrderTableView" layoutX="14.0" layoutY="14.0" prefHeight="528.0" prefWidth="606.0">
+        <columns>
+          <TableColumn fx:id="productIdColumn" prefWidth="38.400025367736816" text="ID" />
+          <TableColumn fx:id="productNameColumn" prefWidth="128.79995346069336" text="Nazwa" />
+            <TableColumn fx:id="productTypeColumn" prefWidth="80.80000305175781" text="Rodzaj" />
+            <TableColumn fx:id="productPriceColumn" prefWidth="74.39996337890625" text="Cena" />
+            <TableColumn fx:id="productAmountColumn" minWidth="0.0" prefWidth="77.60003662109375" text="Ilość" />
+            <TableColumn fx:id="productSupplierColumn" prefWidth="120.0" text="Dostawca" />
+            <TableColumn fx:id="productSumColumn" prefWidth="83.19998779296873" text="Suma" />
+        </columns>
+      </TableView>
+      <Button fx:id="deleteProductButton" layoutX="640.0" layoutY="156.0" mnemonicParsing="false" onAction="#deleteProductFromUnfinishedOrder" prefHeight="41.0" prefWidth="130.0" text="Usuń" />
+      <Text layoutX="633.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Łączna kwota zamówienia: " wrappingWidth="144.5367431640625" />
+      <Button fx:id="cancelButton" layoutX="640.0" layoutY="209.0" mnemonicParsing="false" onAction="#cancelButtonPushed" prefHeight="41.0" prefWidth="130.0" text="Anuluj" />
+      <Text fx:id="orderSumText" layoutX="633.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="144.53675282001495" />
+   </children>
+</AnchorPane>
