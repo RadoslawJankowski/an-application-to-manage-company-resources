@@ -23,8 +23,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static db.DBConnector.getConnection;
-import static mysqlCommands.selectQueries.suppliers.SelectFromSuppliersQueries.SELECT_ALL_FROM_SUPPLIERS;
+import static db.DBConnector.getConnectionToCompany;
+import static mysqlCommands.selectQueries.companyDatabase.suppliers.SelectFromSuppliersQueries.SELECT_ALL_FROM_SUPPLIERS;
 
 /**
  * Main Controller for supplier view
@@ -102,7 +102,7 @@ public class SupplierMainPanelController implements GeneralMethodsForMainWindowC
 
     /**
      * <p>The method at the beginning removes all results from {@code tableViewSupplier} and sets opacity to 1.</p>
-     * <p>Establishes a connection via {@link Connection} {@code connection = getConnection()}.</p>
+     * <p>Establishes a connection via {@link Connection} {@code connection = getConnectionToCompany()}.</p>
      * <p>Then execute the query {@code SELECT_ALL_FROM_SUPPLIERS}.</p>
      * Using {@code while(resultSet.next())} pulls out all suppliers and adds them to the {@link ObservableList} {@code observableList}.
      * <p>At the end closes all connections.</p>
@@ -116,7 +116,7 @@ public class SupplierMainPanelController implements GeneralMethodsForMainWindowC
         tableViewSuppliers.setOpacity(1);
 
         try {
-            connection = getConnection();
+            connection = getConnectionToCompany();
             resultSet = connection.createStatement().executeQuery(SELECT_ALL_FROM_SUPPLIERS);
 
             while (resultSet.next()) {

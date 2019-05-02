@@ -13,7 +13,7 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 import static controller.suppliers.SupplierMainPanelController.getInstanceOfSuppMainPanel;
-import static db.DBConnector.getConnection;
+import static db.DBConnector.getConnectionToCompany;
 import static mysqlCommands.updateQueries.suppliers.UpdateSuppliers.UPDATE_SUPPLIER;
 
 /**
@@ -37,7 +37,7 @@ public class UpdateSupplierController implements Initializable {
 
     /**
      *
-     * <p>Establishes a connection via {@link Connection } {@code connection = getConnection ()}.</p>
+     * <p>Establishes a connection via {@link Connection } {@code connection = getConnectionToCompany ()}.</p>
      * <p>Prepares {@link PreparedStatement } {@code preparedStatement(UPDATE_SUPPLIER) } and sets {@code parameterIndex } values ​​to the
      * appropriate values ​​from {@link TextField} {@code nameTextFieldToUpdate, typeOfProductsTextFieldToUpdate} etc. </p>
      * If all data has been provided in the correct form, the user is asked to confirm, and then the user is added to the database.
@@ -52,7 +52,7 @@ public class UpdateSupplierController implements Initializable {
                 "Edytor danych dostawcy ID: " + getInstanceOfSuppMainPanel().supplierToUpdate.getSupplier_id(),
                 JOptionPane.YES_NO_OPTION);
         if (p == 0) {
-            connection = getConnection();
+            connection = getConnectionToCompany();
             statement = connection.prepareStatement(UPDATE_SUPPLIER);
             ((PreparedStatement) statement).setString(1, String.valueOf(nameTextFieldToUpdate.getText()));
             ((PreparedStatement) statement).setInt(2, Integer.parseInt(String.valueOf(typeOfProductsTextFieldToUpdate.getText())));

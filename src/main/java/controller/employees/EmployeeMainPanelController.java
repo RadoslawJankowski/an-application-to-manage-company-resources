@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.*;
 
-import static db.DBConnector.getConnection;
-import static mysqlCommands.selectQueries.employees.SelectFromEmployeesQueries.SELECT_ALL_FROM_EMPLOYEES;
+import static db.DBConnector.getConnectionToCompany;
+import static mysqlCommands.selectQueries.companyDatabase.employees.SelectFromEmployeesQueries.SELECT_ALL_FROM_EMPLOYEES;
 
 /**
  * The main controller for employees view {@code AddEmployeeWindow.fxml }, {@code DeleteEmployee.fxml }, {@code UpdateEmployeeWindow.fxml }.
@@ -79,7 +79,7 @@ public class EmployeeMainPanelController implements GeneralMethodsForMainWindowC
 
     /**
      * <p>The method at the beginning removes all results from {@code tableViewEmployees} and sets opacity to 1.</p>
-     * <p>Establishes a connection via {@link Connection} {@code connection = getConnection()}.</p>
+     * <p>Establishes a connection via {@link Connection} {@code connection = getConnectionToCompany()}.</p>
      * <p>Then execute the query {@code SELECT_ALL_FROM_EMPLOYEES}.</p>
      * Using {@code while(resultSet.next())} pulls out all employees and adds them to the {@link ObservableList} {@code observableList}.
      * <p>At the end closes all connections.</p>
@@ -96,7 +96,7 @@ public class EmployeeMainPanelController implements GeneralMethodsForMainWindowC
         tableViewEmployees.getItems().clear();
         tableViewEmployees.setOpacity(1);
         try {
-            connection = getConnection();
+            connection = getConnectionToCompany();
             resultSet = connection.createStatement().executeQuery(SELECT_ALL_FROM_EMPLOYEES);
 
             while (resultSet.next()) {

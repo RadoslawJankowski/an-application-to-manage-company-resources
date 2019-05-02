@@ -9,8 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 
-import static db.DBConnector.getConnection;
-import static mysqlCommands.insertIntoQueries.suppliers.InsertIntoSuppliersQueries.INSERT_INTO_SUPPLIERS;
+import static db.DBConnector.getConnectionToCompany;
+import static mysqlCommands.insertIntoQueries.companyDatabase.suppliers.InsertIntoSuppliersQueries.INSERT_INTO_SUPPLIERS;
 
 /**
  * Controller for {@code AddEmployeeWindow.fxml }.
@@ -33,7 +33,7 @@ public class AddSupplierWindowController {
     /**
      *
      <p>The method establishes a connection through {@link Connection}
-     connection = getConnection () and prepares statement = connection.prepareStatement (INSERT_INTO_SUPPLIERS).</p>
+     connection = getConnectionToCompany () and prepares statement = connection.prepareStatement (INSERT_INTO_SUPPLIERS).</p>
      <p>Gets data from the {@link TextField} and uses {@link PreparedStatement} to set values ​​to the query, respectively.</p>
      <p>Checks whether the given gender meets the requirements and then asks the user to confirm the operation.</p>
      If everything above is done, it closes all connections and closes the window of adding an supplier.
@@ -43,7 +43,7 @@ public class AddSupplierWindowController {
     public void addSupplierButtonPushed() throws SQLException {
         int p = JOptionPane.showConfirmDialog(null, "Czy potwierdzasz dodanie?", "Dodawanie dostawcy", JOptionPane.YES_NO_OPTION);
         if (p == 0) {
-            connection = getConnection();
+            connection = getConnectionToCompany();
             statement = connection.prepareStatement(INSERT_INTO_SUPPLIERS);
             ((PreparedStatement) statement).setString(1, nameTextField.getText());
             ((PreparedStatement) statement).setInt(2, Integer.parseInt(typeOfProductsTextField.getText()));

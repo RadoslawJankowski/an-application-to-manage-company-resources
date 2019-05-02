@@ -13,7 +13,7 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 import static controller.employees.EmployeeMainPanelController.getInstanceOfEmpMainPanel;
-import static db.DBConnector.getConnection;
+import static db.DBConnector.getConnectionToCompany;
 import static mysqlCommands.updateQueries.employees.UpdateEmployees.UPDATE_EMPLOYEE;
 
 /**
@@ -37,7 +37,7 @@ public class UpdateEmployeeController implements Initializable {
 
     /**
      *
-     * <p>Establishes a connection via {@link Connection } {@code connection = getConnection ()}.</p>
+     * <p>Establishes a connection via {@link Connection } {@code connection = getConnectionToCompany ()}.</p>
      * <p>Prepares {@link PreparedStatement } {@code preparedStatement(UPDATE_EMPLOYEE) } and sets {@code parameterIndex } values ​​to the
      * appropriate values ​​from {@link TextField} {@code firstNameTextFieldUpdate, lastNameTextFieldUpdate} etc. </p>
      * If all data has been provided in the correct form, the user is asked to confirm, and then the user is added to the database.
@@ -52,7 +52,7 @@ public class UpdateEmployeeController implements Initializable {
                 "Edytor danych pracownika ID: " + getInstanceOfEmpMainPanel().employeeToUpdate.getEmp_id(),
                 JOptionPane.YES_NO_OPTION);
         if (p == 0) {
-            connection = getConnection();
+            connection = getConnectionToCompany();
             statement = connection.prepareStatement(UPDATE_EMPLOYEE);
             ((PreparedStatement) statement).setString(1, String.valueOf(firstNameTextFieldUpdate.getText()));
             ((PreparedStatement) statement).setString(2, String.valueOf(lastNameTextFieldUpdate.getText()));

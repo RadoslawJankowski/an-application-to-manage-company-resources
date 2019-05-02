@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import static controller.suppliers.SupplierMainPanelController.getInstanceOfSuppMainPanel;
-import static db.DBConnector.getConnection;
+import static db.DBConnector.getConnectionToCompany;
 import static mysqlCommands.deleteQueries.suppliers.DeleteFromSuppliersQueries.DELETE_SUPPLIER_BY_ID;
 
 /**
@@ -49,7 +49,7 @@ public class DeleteSupplierController {
         if (p == 0) {
             if (supplierIdToDelete.getText().contains(String.valueOf(getInstanceOfSuppMainPanel().supplierToDelete.getSupplier_id()))) {
                 try {
-                    connection = getConnection();
+                    connection = getConnectionToCompany();
                     statement = connection.prepareStatement(DELETE_SUPPLIER_BY_ID);
                     ((PreparedStatement) statement).setInt(1, getInstanceOfSuppMainPanel().supplierToDelete.getSupplier_id());
                     ((PreparedStatement) statement).executeUpdate();

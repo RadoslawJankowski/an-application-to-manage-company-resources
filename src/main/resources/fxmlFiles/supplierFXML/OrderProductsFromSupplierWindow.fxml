@@ -21,7 +21,7 @@
       <Button fx:id="addToOrderButton" layoutX="466.0" layoutY="145.0" mnemonicParsing="false" onAction="#addToOrderButtonPushed" prefHeight="38.0" prefWidth="205.0" text="Dodaj do zamówienia" />
       <Text fx:id="orderTotalText" layoutX="465.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Łączna kwota zamowienia:" wrappingWidth="149.60000909864902" />
       <Text fx:id="orderTotalSum" layoutX="616.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="122.13671875" />
-      <Button fx:id="orderButton" layoutX="465.0" layoutY="397.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" text="Złóż zamówienie" />
+      <Button fx:id="orderButton" layoutX="465.0" layoutY="397.0" mnemonicParsing="false" onAction="#placeOrderButtonPushed" prefHeight="38.0" prefWidth="149.0" text="Złóż zamówienie" />
       <Button fx:id="currentOrderView" layoutX="465.0" layoutY="269.0" mnemonicParsing="false" onAction="#showUnfinishedOrderButtonPushed" prefHeight="38.0" prefWidth="206.0" text="Pokaż bieżące zamówienie" />
    </children>
 </AnchorPane>

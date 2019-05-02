@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import static controller.employees.EmployeeMainPanelController.getInstanceOfEmpMainPanel;
-import static db.DBConnector.getConnection;
+import static db.DBConnector.getConnectionToCompany;
 import static mysqlCommands.deleteQueries.employees.DeleteFromEmployeesQueries.DELETE_EMPLOYEE_BY_ID;
 
 /**
@@ -49,7 +49,7 @@ public class DeleteEmployeeController {
         if (p == 0) {
             if (empIdToDelete.getText().contains(String.valueOf(getInstanceOfEmpMainPanel().employeeToDelete.getEmp_id()))) {
                 try {
-                    connection = getConnection();
+                    connection = getConnectionToCompany();
                     statement = connection.prepareStatement(DELETE_EMPLOYEE_BY_ID);
                     ((PreparedStatement) statement).setInt(1, getInstanceOfEmpMainPanel().employeeToDelete.getEmp_id());
                     ((PreparedStatement) statement).executeUpdate();

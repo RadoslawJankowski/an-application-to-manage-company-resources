@@ -19,9 +19,9 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-import static db.DBConnector.getConnection;
+import static db.DBConnector.getConnectionToCompany;
 import static mysqlCommands.deleteQueries.unfinished_order.DeleteFromUnfinishedOrderQueries.DELETE_FROM_UNFINISHED_ORDER_BY_ID;
-import static mysqlCommands.selectQueries.unfinished_order.SelectFromUnfinishedOrderQueries.SELECT_ID_NAME_PRICE_AMOUNT_TYPE_SUPPLIER_SUM_FROM_UNFINISHED_ORDER;
+import static mysqlCommands.selectQueries.companyDatabase.unfinished_order.SelectFromUnfinishedOrderQueries.SELECT_ID_NAME_PRICE_AMOUNT_TYPE_SUPPLIER_SUM_FROM_UNFINISHED_ORDER;
 
 /**
  * Controller for {@code ShowUnfinishedOrderWindow.fxml }.
@@ -70,7 +70,7 @@ public class ShowUnfinishedOrderWindowController implements Initializable {
 
     /**
      * If the user selects the product, the connection to the {@code unfinished_order} database
-     * is established using {@link DBConnector#getConnection()}. A statement is prepared using
+     * is established using {@link DBConnector#getConnectionToCompany()}. A statement is prepared using
      * {@code DELETE_FROM_UNFINISHED_ORDER_BY_ID}. Id is set by the selected model and then the product
      * is removed from the database. The user is informed about the correct removal of the product
      * and the window is closed. If the user does not choose the product he will get a message that
@@ -80,7 +80,7 @@ public class ShowUnfinishedOrderWindowController implements Initializable {
     public void deleteProductFromUnfinishedOrder() throws SQLException {
 
         if (unfinishedOrderTableView.getSelectionModel().getSelectedItem() != null) {
-            connection = getConnection();
+            connection = getConnectionToCompany();
             statement = connection.prepareStatement(DELETE_FROM_UNFINISHED_ORDER_BY_ID);
             ((PreparedStatement) statement).setInt(1, unfinishedOrderTableView.getSelectionModel().getSelectedItem().getProduct_id());
             ((PreparedStatement) statement).executeUpdate();
@@ -125,7 +125,7 @@ public class ShowUnfinishedOrderWindowController implements Initializable {
     /**
      * In the initialization, the text orderSumText is set using the
      * {@link OrderProductsFromSupplierWindowController#totalOrderSumValue(Text)} method.
-     * Connects to the {@code unfinished_order} database using {@link DBConnector#getConnection()}  and
+     * Connects to the {@code unfinished_order} database using {@link DBConnector#getConnectionToCompany()}  and
      * extracts results using {@link ResultSet} {@code resultSet} and adds them to {@link TableView} {@code unfinishedOrderTableView}.
      * @param location
      * @param resources
@@ -144,7 +144,7 @@ public class ShowUnfinishedOrderWindowController implements Initializable {
         unfinishedOrderTableView.getItems().clear();
 
         try {
-            connection = getConnection();
+            connection = getConnectionToCompany();
             resultSet = connection.createStatement().executeQuery(SELECT_ID_NAME_PRICE_AMOUNT_TYPE_SUPPLIER_SUM_FROM_UNFINISHED_ORDER);
 
             while (resultSet.next()) {

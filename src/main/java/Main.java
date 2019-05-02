@@ -6,24 +6,28 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import mysqlTablesSchema.ordersDatabaseTables.order_to_the_supplier.OrderToTheSupplier;
+
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static mysqlCommands.CreateDatabase.CREATE_DATABASE;
-import static mysqlCommands.insertIntoQueries.employee_positions.InsertIntoEmploteePositionsQueries.BASIC_EMPLOYEE_POSITIONS;
-import static mysqlCommands.insertIntoQueries.suppliers_products.InsertIntoSuppliersProductsQueries.BASIC_SUPPLIERS_PRODUCTS;
-import static mysqlCommands.insertIntoQueries.types_or_products.InsertIntoTypesOfProductsQueries.BASIC_TYPES_OF_PRODUCTS;
-import static mysqlTablesSchema.employee_positions.CreateEmployeePositionsTable.EMPLOYEE_POSITIONS_TABLE;
-import static mysqlTablesSchema.employees.CreateEmployeesTable.EMPLOYEE_TABLE_TABLE;
-import static mysqlTablesSchema.products.CreateProductsTable.PRODUCT_TABLE;
-import static mysqlTablesSchema.suppliers.CreateSuppliersTable.SUPPLIER_TABLE;
-import static mysqlTablesSchema.suppliers_products.CreateSuppliersProductsTable.SUPPLIERS_PRODUCTS_TABLE;
-import static mysqlTablesSchema.types_of_products.CreateTypesOfProductsTable.TYPES_OF_PRODUCTS_TABLE;
-import static mysqlTablesSchema.unfinished_order.CreateUnfinishedOrderTable.UNFINISHED_ORDER_TABLE;
+import static mysqlCommands.CreateDatabases.CREATE_DATABASE_COMPANY;
+import static mysqlCommands.CreateDatabases.CREATE_DATABASE_ORDERS;
+import static mysqlCommands.insertIntoQueries.companyDatabase.employee_positions.InsertIntoEmploteePositionsQueries.BASIC_EMPLOYEE_POSITIONS;
+import static mysqlCommands.insertIntoQueries.companyDatabase.suppliers_products.InsertIntoSuppliersProductsQueries.BASIC_SUPPLIERS_PRODUCTS;
+import static mysqlCommands.insertIntoQueries.companyDatabase.types_or_products.InsertIntoTypesOfProductsQueries.BASIC_TYPES_OF_PRODUCTS;
+import static mysqlTablesSchema.companyDatabaseTables.employee_positions.CreateEmployeePositionsTable.EMPLOYEE_POSITIONS_TABLE;
+import static mysqlTablesSchema.companyDatabaseTables.employees.CreateEmployeesTable.EMPLOYEE_TABLE;
+import static mysqlTablesSchema.ordersDatabaseTables.invoices_numbers.InvoicesNumbers.INVOICES_NUMBERS_TABLE;
+import static mysqlTablesSchema.companyDatabaseTables.products.CreateProductsTable.PRODUCT_TABLE;
+import static mysqlTablesSchema.companyDatabaseTables.suppliers.CreateSuppliersTable.SUPPLIER_TABLE;
+import static mysqlTablesSchema.companyDatabaseTables.suppliers_products.CreateSuppliersProductsTable.SUPPLIERS_PRODUCTS_TABLE;
+import static mysqlTablesSchema.companyDatabaseTables.types_of_products.CreateTypesOfProductsTable.TYPES_OF_PRODUCTS_TABLE;
+import static mysqlTablesSchema.companyDatabaseTables.unfinished_order.CreateUnfinishedOrderTable.UNFINISHED_ORDER_TABLE;
 
-public class Main extends Application{
+public class Main extends Application {
 
     private static Object Result;
 
@@ -36,17 +40,18 @@ public class Main extends Application{
 
         // creating database
         try {
-                 connection = DBConnector.getConnectionWithoutDatabase();
+            connection = DBConnector.getConnectionWithoutDatabase();
             statement = connection.createStatement();
-            Result = statement.executeUpdate(CREATE_DATABASE);
+            Result = statement.executeUpdate(CREATE_DATABASE_COMPANY);
+            Result = statement.executeUpdate(CREATE_DATABASE_ORDERS);
             statement.close();
             connection.close();
 
             // creating tables
-            connection = DBConnector.getConnection();
+            connection = DBConnector.getConnectionToCompany();
             statement = connection.createStatement();
             statement.executeUpdate(EMPLOYEE_POSITIONS_TABLE);
-            statement.executeUpdate(EMPLOYEE_TABLE_TABLE);
+            statement.executeUpdate(EMPLOYEE_TABLE);
             statement.executeUpdate(TYPES_OF_PRODUCTS_TABLE);
             statement.executeUpdate(SUPPLIER_TABLE);
             statement.executeUpdate(PRODUCT_TABLE);
@@ -70,19 +75,19 @@ public class Main extends Application{
 
             // insert positions to employee_positions table
             statement = connection.prepareStatement(BASIC_EMPLOYEE_POSITIONS);
-            ((PreparedStatement) statement).setString(1 , "DYREKTOR");
+            ((PreparedStatement) statement).setString(1, "DYREKTOR");
             ((PreparedStatement) statement).executeUpdate();
-            ((PreparedStatement) statement).setString(1 , "LOGISTYK");
+            ((PreparedStatement) statement).setString(1, "LOGISTYK");
             ((PreparedStatement) statement).executeUpdate();
-            ((PreparedStatement) statement).setString(1 , "SEKRETARKA");
+            ((PreparedStatement) statement).setString(1, "SEKRETARKA");
             ((PreparedStatement) statement).executeUpdate();
-            ((PreparedStatement) statement).setString(1 , "ASYSTENTKA");
+            ((PreparedStatement) statement).setString(1, "ASYSTENTKA");
             ((PreparedStatement) statement).executeUpdate();
-            ((PreparedStatement) statement).setString(1 , "KIEROWNIK");
+            ((PreparedStatement) statement).setString(1, "KIEROWNIK");
             ((PreparedStatement) statement).executeUpdate();
-            ((PreparedStatement) statement).setString(1 , "ZASTĘPCA KIEROWNIKA");
+            ((PreparedStatement) statement).setString(1, "ZASTĘPCA KIEROWNIKA");
             ((PreparedStatement) statement).executeUpdate();
-            ((PreparedStatement) statement).setString(1 , "OBSŁUGA");
+            ((PreparedStatement) statement).setString(1, "OBSŁUGA");
             ((PreparedStatement) statement).executeUpdate();
 
             // insert products to suppliers_products table
@@ -174,9 +179,7 @@ public class Main extends Application{
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
-        }
-
-        finally {
+        } finally {
             try {
                 if (statement != null) {
                     statement.close();
@@ -184,7 +187,7 @@ public class Main extends Application{
                 if (connection != null) {
                     connection.close();
                 }
-                if (resultSet != null){
+                if (resultSet != null) {
                     resultSet.close();
                 }
 
@@ -194,11 +197,20 @@ public class Main extends Application{
             }
         }
 
+        try {
+            connection = DBConnector.getConnectionToOrders();
+            statement = connection.createStatement();
+            statement.executeUpdate(INVOICES_NUMBERS_TABLE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         launch(args);
     }
 
     /**
      * Load first application window {@code MainMenuPanel.fxml}
+     *
      * @param primaryStage
      * @throws Exception
      */

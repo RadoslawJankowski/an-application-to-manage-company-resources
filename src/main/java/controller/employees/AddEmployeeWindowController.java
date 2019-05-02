@@ -9,8 +9,8 @@ import java.awt.*;
 import java.math.BigDecimal;
 import java.sql.*;
 
-import static db.DBConnector.getConnection;
-import static mysqlCommands.insertIntoQueries.employees.InsertIntoEmployeesQueries.INSERT_INTO_EMPLOYEES;
+import static db.DBConnector.getConnectionToCompany;
+import static mysqlCommands.insertIntoQueries.companyDatabase.employees.InsertIntoEmployeesQueries.INSERT_INTO_EMPLOYEES;
 
 /**
  * Controller for the {@code AddEmployeeWindow.fxml } window.
@@ -34,7 +34,7 @@ public class AddEmployeeWindowController {
     /**
      *
      <p>The method establishes a connection through {@link Connection}
-     connection = getConnection () and prepares statement = connection.prepareStatement (INSERT_INTO_EMPLOYEES).</p>
+     connection = getConnectionToCompany () and prepares statement = connection.prepareStatement (INSERT_INTO_EMPLOYEES).</p>
      <p>Gets data from the {@link TextField} and uses {@link PreparedStatement} to set values ​​to the query, respectively.</p>
      <p>Checks whether the given gender meets the requirements and then asks the user to confirm the operation.</p>
      If everything above is done, it closes all connections and closes the window of adding an employee.
@@ -46,7 +46,7 @@ public class AddEmployeeWindowController {
         if (sexTextField.getText().toUpperCase().contentEquals("F") || sexTextField.getText().toUpperCase().contentEquals("M")) {
             int p = JOptionPane.showConfirmDialog(null, "Czy potwierdzasz dodanie pracownika?", "Dodawanie pracownika", JOptionPane.YES_NO_OPTION);
             if (p == 0) {
-                connection = getConnection();
+                connection = getConnectionToCompany();
                 statement = connection.prepareStatement(INSERT_INTO_EMPLOYEES);
                 ((PreparedStatement) statement).setString(1, firstNameTextField.getText());
                 ((PreparedStatement) statement).setString(2, lastNameTextField.getText());
