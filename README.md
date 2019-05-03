@@ -33,6 +33,40 @@ After selecting an employee, and then clicking Edit, a new window opens in which
 Result of display of all employees after editing:
 [![firma-6.png](https://i.postimg.cc/KzwnzQxv/firma-6.png)](https://postimg.cc/1n0g7G8L)
 
+
+Currently, the Employees tab is fully operational.
+
+Adding, deleting, editing and all type information windows "do you recommend adding?" , "employee added", "confirm removal" are asa logical as in the case of the employee panel.
+[![supplier-ss1.png](https://i.postimg.cc/zGMscmMG/supplier-ss1.png)](https://postimg.cc/Yv6DvPM5)
+[![supplier-ss2.png](https://i.postimg.cc/bNfKXcq6/supplier-ss2.png)](https://postimg.cc/0rZtm4Mm)
+[![supplier-ss3.png](https://i.postimg.cc/kgnz4Q6K/supplier-ss3.png)](https://postimg.cc/4mSB2h1x)
+
+However, the suppliers' panel has the option of ordering goods. After displaying the list of suppliers and selecting the appropriate supplier, we can click the "order" button.
+
+[![supplier-ss4.png](https://i.postimg.cc/V6vQGjBX/supplier-ss4.png)](https://postimg.cc/67kmT4PQ)
+A window for placing orders is loaded. We display a list of goods that has a specific seller in its offer.
+
+We select the product, give the number of pieces (currently only full numbers), and then press the "add to order" button.
+It is worth noting that the total amount of the order changes on a regular basis after adding the product to the order.
+[![supplier-ss5.png](https://i.postimg.cc/MGvJt7YV/supplier-ss5.png)](https://postimg.cc/qtVFvCSv)
+
+
+After adding several products from different suppliers, press the "show current order" button. We are loading a window with a list of products contracted from the MySQL table "unfinished_order".
+[![supplier-ss6.png](https://i.postimg.cc/QNSSN2DN/supplier-ss6.png)](https://postimg.cc/c6gfX56P)
+
+
+The products can be quickly and easily removed from our current order using the "delete" button.
+[![supplier-ss7.png](https://i.postimg.cc/59PqW856/supplier-ss7.png)](https://postimg.cc/14qNpnjQ)
+
+
+If the order is ready, press the "place an order" button. At the moment, a table is automatically created that has a unique number generated in the name and all products that were previously in the unfinished_order table are removed to prepare tables for the next order.
+[![supplier-ss8.png](https://i.postimg.cc/7Y03Gj8T/supplier-ss8.png)](https://postimg.cc/PPfp03qt)
+
+
+Currently, the program does not have a loading window ready for suppliers, therefore I attach a screen with MySQL to show it.
+[![supplier-ss9.png](https://i.postimg.cc/GphGf2Bk/supplier-ss9.png)](https://postimg.cc/Sn3n2mfs)
+
+
 The next steps will be the creation of a invoice management system in which I plan to create methods for creating invoices to PDF.
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------POLSKI--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
